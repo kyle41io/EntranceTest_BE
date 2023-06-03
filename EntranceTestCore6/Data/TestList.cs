@@ -6,7 +6,7 @@ namespace EntranceTestCore6.Data
         public int TestId { get; set; }
         public string? TestName { get; set; }
         public int QuestionAmount { get; set; }
-        public TimeSpan TestTime { get; set; }
+        public System.TimeSpan TestTime { get; set; }
         public string? TestDesc { get; set; }
        
     }

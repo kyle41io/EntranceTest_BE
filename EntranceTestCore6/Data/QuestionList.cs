@@ -11,7 +11,6 @@ namespace EntranceTestCore6.Data
         public string? Answer3 { get; set; }
         public string? Answer4 { get; set; }
         public int CorrectAnswer { get; set; }
-        public TestList? TestList { get; set; }
-        public ICollection<TestQuestionAttemptList>? TestQuestionAttemptLists { get; set; }
+        
     }
 }

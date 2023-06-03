@@ -25,25 +25,7 @@ namespace EntranceTestCore6.Data
             modelBuilder.Entity<TestAttemptList>().HasKey(a => a.AttemptId);
             modelBuilder.Entity<TestQuestionAttemptList>().HasKey(aq => aq.AttemptQuestionId);
 
-            modelBuilder.Entity<TestList>()
-                .HasMany(t => t.QuestionLists)
-                .WithOne(q => q.TestList)
-                .HasForeignKey(q => q.TestId);
-
-            modelBuilder.Entity<TestList>()
-                .HasMany(t => t.TestAttemptLists)
-                .WithOne(a => a.TestList)
-                .HasForeignKey(a => a.TestId);
-
-            modelBuilder.Entity<QuestionList>()
-                .HasMany(q => q.TestQuestionAttemptLists)
-                .WithOne(a => a.QuestionList)
-                .HasForeignKey(a => a.QuestionId);
-
-            modelBuilder.Entity<TestAttemptList>()
-                .HasMany(a => a.TestQuestionAttemptLists)
-                .WithOne(a => a.TestAttemptList)
-                .HasForeignKey(a => a.AttemptId);
+            
         }
     }
 

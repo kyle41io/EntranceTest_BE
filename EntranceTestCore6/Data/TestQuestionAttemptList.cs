@@ -9,8 +9,6 @@ namespace EntranceTestCore6.Data
         public int Chose { get; set; }
         public int CorrectAnswer { get; set; }
         public bool IsCorrect { get; set; }
-        public TestAttemptList? TestAttemptList { get; set; }
-        public QuestionList? QuestionList { get; set; }
 
     }
 }
