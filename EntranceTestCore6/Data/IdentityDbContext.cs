@@ -1,4 +1,4 @@
-﻿/*using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace EntranceTestCore6.Data
 {
@@ -12,4 +12,3 @@ namespace EntranceTestCore6.Data
         }
     }
 }
-*/

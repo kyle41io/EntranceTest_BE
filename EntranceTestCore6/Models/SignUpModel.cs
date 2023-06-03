@@ -15,5 +15,10 @@ namespace EntranceTestCore6.Models
         public string Password { get; set; } = null!;
         [Required]
         public string ConfirmPassword { get; set; } = null!;
+        [Required]
+        public System.DateTime DateOfBirth { get; set; }
+        public string Avatar { get; set; } = null!;
+        [Required]
+        public int? Status { get; set; }
     }
 }

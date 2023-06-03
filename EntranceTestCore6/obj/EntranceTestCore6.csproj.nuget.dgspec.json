@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\--CODE--\\My Project\\EntranceTestCore6\\EntranceTestCore6\\EntranceTestCore6.csproj": {}
+    "D:\\--CODE--\\My Project\\EntranceTest_BE\\EntranceTestCore6\\EntranceTestCore6.csproj": {}
   },
   "projects": {
-    "D:\\--CODE--\\My Project\\EntranceTestCore6\\EntranceTestCore6\\EntranceTestCore6.csproj": {
+    "D:\\--CODE--\\My Project\\EntranceTest_BE\\EntranceTestCore6\\EntranceTestCore6.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\--CODE--\\My Project\\EntranceTestCore6\\EntranceTestCore6\\EntranceTestCore6.csproj",
+        "projectUniqueName": "D:\\--CODE--\\My Project\\EntranceTest_BE\\EntranceTestCore6\\EntranceTestCore6.csproj",
         "projectName": "EntranceTestCore6",
-        "projectPath": "D:\\--CODE--\\My Project\\EntranceTestCore6\\EntranceTestCore6\\EntranceTestCore6.csproj",
+        "projectPath": "D:\\--CODE--\\My Project\\EntranceTest_BE\\EntranceTestCore6\\EntranceTestCore6.csproj",
         "packagesPath": "C:\\Users\\VanKien\\.nuget\\packages\\",
-        "outputPath": "D:\\--CODE--\\My Project\\EntranceTestCore6\\EntranceTestCore6\\obj\\",
+        "outputPath": "D:\\--CODE--\\My Project\\EntranceTest_BE\\EntranceTestCore6\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -60,6 +60,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.16, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

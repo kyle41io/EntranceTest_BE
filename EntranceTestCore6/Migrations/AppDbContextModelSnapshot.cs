@@ -30,9 +30,16 @@ namespace EntranceTestCore6.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Avatar")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -75,6 +82,15 @@ namespace EntranceTestCore6.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("SignUpDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestAmount")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -92,6 +108,141 @@ namespace EntranceTestCore6.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.QuestionList", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("QuestionId"));
+
+                    b.Property<string>("Answer1")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Answer2")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Answer3")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Answer4")
+                        .HasColumnType("text");
+
+                    b.Property<int>("CorrectAnswer")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Question")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TestName")
+                        .HasColumnType("text");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("QuestionLists");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestAttemptList", b =>
+                {
+                    b.Property<int>("AttemptId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AttemptId"));
+
+                    b.Property<double>("Accurate")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("AmountCorrect")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsFinish")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TestName")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("TimeStart")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("AttemptId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("TestAttemptLists");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestList", b =>
+                {
+                    b.Property<int>("TestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TestId"));
+
+                    b.Property<int>("QuestionAmount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TestDesc")
+                        .HasColumnType("text");
+
+                    b.Property<string>("TestName")
+                        .HasColumnType("text");
+
+                    b.Property<TimeSpan>("TestTime")
+                        .HasColumnType("interval");
+
+                    b.HasKey("TestId");
+
+                    b.ToTable("TestLists");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestQuestionAttemptList", b =>
+                {
+                    b.Property<int>("AttemptQuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AttemptQuestionId"));
+
+                    b.Property<int>("AttemptId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Chose")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CorrectAnswer")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AttemptQuestionId");
+
+                    b.HasIndex("AttemptId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("TestQuestionAttemptLists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -226,6 +377,47 @@ namespace EntranceTestCore6.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EntranceTestCore6.Data.QuestionList", b =>
+                {
+                    b.HasOne("EntranceTestCore6.Data.TestList", "TestList")
+                        .WithMany("QuestionLists")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TestList");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestAttemptList", b =>
+                {
+                    b.HasOne("EntranceTestCore6.Data.TestList", "TestList")
+                        .WithMany("TestAttemptLists")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TestList");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestQuestionAttemptList", b =>
+                {
+                    b.HasOne("EntranceTestCore6.Data.TestAttemptList", "TestAttemptList")
+                        .WithMany("TestQuestionAttemptLists")
+                        .HasForeignKey("AttemptId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EntranceTestCore6.Data.QuestionList", "QuestionList")
+                        .WithMany("TestQuestionAttemptLists")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("QuestionList");
+
+                    b.Navigation("TestAttemptList");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -275,6 +467,23 @@ namespace EntranceTestCore6.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.QuestionList", b =>
+                {
+                    b.Navigation("TestQuestionAttemptLists");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestAttemptList", b =>
+                {
+                    b.Navigation("TestQuestionAttemptLists");
+                });
+
+            modelBuilder.Entity("EntranceTestCore6.Data.TestList", b =>
+                {
+                    b.Navigation("QuestionLists");
+
+                    b.Navigation("TestAttemptLists");
                 });
 #pragma warning restore 612, 618
         }

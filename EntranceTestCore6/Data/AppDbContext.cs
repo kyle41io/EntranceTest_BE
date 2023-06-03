@@ -10,25 +10,20 @@ namespace EntranceTestCore6.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
-/*
-        public DbSet<Member> Members { get; set; }
+
         public DbSet<TestList> TestLists { get; set; }
         public DbSet<QuestionList> QuestionLists { get; set; }
         public DbSet<TestAttemptList> TestAttemptLists { get; set; }
         public DbSet<TestQuestionAttemptList> TestQuestionAttemptLists { get; set; }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Member>().HasKey(m => m.MemberId);
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<TestList>().HasKey(t => t.TestId);
             modelBuilder.Entity<QuestionList>().HasKey(q => q.QuestionId);
             modelBuilder.Entity<TestAttemptList>().HasKey(a => a.AttemptId);
             modelBuilder.Entity<TestQuestionAttemptList>().HasKey(aq => aq.AttemptQuestionId);
-
-            modelBuilder.Entity<Member>()
-                .HasMany(m => m.TestAttemptLists)
-                .WithOne(t => t.Member)
-                .HasForeignKey(t => t.MemberId);
 
             modelBuilder.Entity<TestList>()
                 .HasMany(t => t.QuestionLists)
@@ -49,7 +44,7 @@ namespace EntranceTestCore6.Data
                 .HasMany(a => a.TestQuestionAttemptLists)
                 .WithOne(a => a.TestAttemptList)
                 .HasForeignKey(a => a.AttemptId);
-        }*/
+        }
     }
 
 }
