@@ -51,7 +51,10 @@ namespace EntranceTestCore6.Repositories
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
+                DateOfBirth = model.DateOfBirth,
+                Avatar = model.Avatar,
+                Status = model.Status
             };
             return await userManager.CreateAsync(user, model.Password);
         }
