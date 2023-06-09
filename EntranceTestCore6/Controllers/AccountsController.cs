@@ -17,10 +17,10 @@ namespace EntranceTestCore6.Controllers
             accountRepo = repo;
         }
 
-        [HttpPost("SignUp")]
-        public async Task<IActionResult> SignUp(SignUpModel signUpModel)
+        [HttpPost("AddMember")]
+        public async Task<IActionResult> AddMember(AddMemberModel addMemberModel)
         {
-            var result = await accountRepo.SignUpAsync(signUpModel);
+            var result = await accountRepo.AddMemberAsync(addMemberModel);
             if (result.Succeeded)
             {
                 return Ok(result.Succeeded);

@@ -1,9 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using AutoMapper.Execution;
 
 namespace EntranceTestCore6.Data
 {
     public class TestAttemptList
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AttemptId { get; set; }
         public int TestId { get; set; }
         public string? TestName { get; set; }

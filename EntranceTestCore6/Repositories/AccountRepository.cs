@@ -44,7 +44,7 @@ namespace EntranceTestCore6.Repositories
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<IdentityResult> SignUpAsync(SignUpModel model)
+        public async Task<IdentityResult> AddMemberAsync(AddMemberModel model)
         {
             var user = new ApplicationUser
             {

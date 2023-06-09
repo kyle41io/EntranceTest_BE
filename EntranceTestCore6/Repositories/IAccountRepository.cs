@@ -5,7 +5,7 @@ namespace EntranceTestCore6.Repositories
 {
     public interface IAccountRepository
     {
-        public Task<IdentityResult> SignUpAsync(SignUpModel model);
+        public Task<IdentityResult> AddMemberAsync(AddMemberModel model);
         public Task<string> SignInAsync(SignInModel model);
        
     }

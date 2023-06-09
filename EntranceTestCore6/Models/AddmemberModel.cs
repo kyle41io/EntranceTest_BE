@@ -3,7 +3,7 @@
 namespace EntranceTestCore6.Models
 
 {
-    public class SignUpModel
+    public class AddMemberModel
     {
         [Required]
         public string FirstName { get; set; } = null!;
