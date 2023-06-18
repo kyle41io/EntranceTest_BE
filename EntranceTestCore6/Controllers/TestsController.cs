@@ -1,125 +1,99 @@
-﻿/*using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using EntranceTestCore6.Data;
+using EntranceTestCore6.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using EntranceTestCore6.Data;
+using System;
+using System.Threading.Tasks;
 
-namespace EntranceTestCore6.Controllers
+[ApiController]
+[Route("[controller]")]
+public class TestsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TestListsController : ControllerBase
+    private readonly IMapper _mapper;
+    private readonly AppDbContext _dbContext;
+
+    public TestsController(IMapper mapper, AppDbContext dbContext)
     {
-        private readonly AppDbContext _context;
+        _mapper = mapper;
+        _dbContext = dbContext;
+    }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<TestModel>>> GetAllTests()
+    {
+        var tests = await _dbContext.Tests.ToListAsync();
+        return _mapper.Map<List<TestModel>>(tests);
+    }
 
-        public TestListsController(AppDbContext context)
+    [HttpGet("{testId}")]
+    public async Task<ActionResult<TestModel>> GetTest(int testId)
+    {
+        var test = await _dbContext.Tests.FindAsync(testId);
+
+        if (test == null)
         {
-            _context = context;
+            return NotFound();
         }
 
-        // GET: api/TestLists
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TestList>>> GetTestLists()
+        return _mapper.Map<TestModel>(test);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateTest(TestModel model)
+    {
+        // Map TestModel to Test entity using AutoMapper
+        var test = _mapper.Map<Test>(model);
+
+        // Add the new test to the Tests DbSet
+        _dbContext.Tests.Add(test);
+        await _dbContext.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetTest), new { testId = test.TestId }, _mapper.Map<TestModel>(test));
+    }
+
+
+    [HttpPut("{testId}")]
+    public async Task<IActionResult> UpdateTest(int testId, TestModel testModel)
+    {
+        var test = await _dbContext.Tests.FindAsync(testId);
+
+        if (test == null)
         {
-          if (_context.TestLists == null)
-          {
-              return NotFound();
-          }
-            return await _context.TestLists.ToListAsync();
+            return NotFound();
         }
 
-        // GET: api/TestLists/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TestList>> GetTestList(int id)
+        _mapper.Map(testModel, test);
+
+        try
         {
-          if (_context.TestLists == null)
-          {
-              return NotFound();
-          }
-            var testList = await _context.TestLists.FindAsync(id);
-
-            if (testList == null)
-            {
-                return NotFound();
-            }
-
-            return testList;
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException) when (!TestExists(testId))
+        {
+            return NotFound();
         }
 
-        // PUT: api/TestLists/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTestList(int id, TestList testList)
+        return NoContent();
+    }
+
+    [HttpDelete("{testId}")]
+    public async Task<IActionResult> DeleteTest(int testId)
+    {
+        var test = await _dbContext.Tests.FindAsync(testId);
+
+        if (test == null)
         {
-            if (id != testList.TestId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(testList).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TestListExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return NotFound();
         }
 
-        // POST: api/TestLists
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<TestList>> PostTestList(TestList testList)
-        {
-          if (_context.TestLists == null)
-          {
-              return Problem("Entity set 'AppDbContext.TestLists'  is null.");
-          }
-            _context.TestLists.Add(testList);
-            await _context.SaveChangesAsync();
+        _dbContext.Tests.Remove(test);
+        await _dbContext.SaveChangesAsync();
 
-            return CreatedAtAction("GetTestList", new { id = testList.TestId }, testList);
-        }
+        return NoContent();
+    }
 
-        // DELETE: api/TestLists/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTestList(int id)
-        {
-            if (_context.TestLists == null)
-            {
-                return NotFound();
-            }
-            var testList = await _context.TestLists.FindAsync(id);
-            if (testList == null)
-            {
-                return NotFound();
-            }
-
-            _context.TestLists.Remove(testList);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool TestListExists(int id)
-        {
-            return (_context.TestLists?.Any(e => e.TestId == id)).GetValueOrDefault();
-        }
+    private bool TestExists(int testId)
+    {
+        return _dbContext.Tests.Any(e => e.TestId == testId);
     }
 }
-*/
-
