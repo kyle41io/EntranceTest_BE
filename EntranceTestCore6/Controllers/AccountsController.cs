@@ -1,7 +1,10 @@
-﻿using EntranceTestCore6.Models;
+﻿using EntranceTestCore6.Data;
+using EntranceTestCore6.Models;
 using EntranceTestCore6.Repositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace EntranceTestCore6.Controllers
@@ -16,11 +19,12 @@ namespace EntranceTestCore6.Controllers
         {
             accountRepo = repo;
         }
+        
 
-        [HttpPost("AddMember")]
-        public async Task<IActionResult> AddMember(AddMemberModel addMemberModel)
+        [HttpPost("AddUser")]
+        public async Task<IActionResult> AddUser(UserModel addUserModel)
         {
-            var result = await accountRepo.AddMemberAsync(addMemberModel);
+            var result = await accountRepo.AddUserAsync(addUserModel);
             if (result.Succeeded)
             {
                 return Ok(result.Succeeded);
@@ -40,6 +44,35 @@ namespace EntranceTestCore6.Controllers
             }
 
             return Ok(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await accountRepo.GetAllUsersAsync();
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await accountRepo.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
+        [HttpPut("UpdateUser/{Id}")]
+        public async Task<IActionResult> UpdateUser(string Id, UserModel updateUserModel)
+        {
+            var result = await accountRepo.UpdateUserAsync(Id, updateUserModel);
+            if (result.Succeeded)
+            {
+                return Ok(result.Succeeded);
+            }
+
+            return Unauthorized();
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
 using System.Text;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -22,6 +23,9 @@ builder.Services.AddCors(options =>
           policy.WithOrigins("http://localhost:3000")
           .AllowAnyMethod()
           .AllowAnyHeader();
+          policy.WithOrigins("http://localhost:5433")
+         .AllowAnyMethod()
+         .AllowAnyHeader();
         });
 });
 builder.Services.AddControllers();
@@ -38,6 +42,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("EntranceTestCore6"));
 });
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -72,6 +78,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.UseHttpsRedirection();
 

@@ -1,6 +1,8 @@
 ﻿using EntranceTestCore6.Data;
 using EntranceTestCore6.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -44,7 +46,7 @@ namespace EntranceTestCore6.Repositories
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<IdentityResult> AddMemberAsync(AddMemberModel model)
+        public async Task<IdentityResult> AddUserAsync(UserModel model)
         {
             var user = new ApplicationUser
             {
@@ -52,11 +54,71 @@ namespace EntranceTestCore6.Repositories
                 LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Email,
+                PhoneNumber = model.PhoneNumber,
                 DateOfBirth = model.DateOfBirth,
                 Avatar = model.Avatar,
-                Status = model.Status
+                Role = model.Role
             };
             return await userManager.CreateAsync(user, model.Password);
         }
+        public async Task<List<UserModel>> GetAllUsersAsync()
+        {
+            var users = await userManager.Users.ToListAsync();
+            var userModels = new List<UserModel>();
+            foreach (var user in users)
+            {
+                userModels.Add(new UserModel
+                {
+                    
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    DateOfBirth = user.DateOfBirth,
+                    Avatar = user.Avatar,
+                    Role = user.Role,
+                });
+            }
+            return userModels;
+        }
+
+        public async Task<UserModel> GetUserByIdAsync(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return null;
+            }
+            return new UserModel
+            {
+                
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DateOfBirth = user.DateOfBirth,
+                Avatar = user.Avatar,
+                Role = user.Role,
+            };
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(string id, UserModel model)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found" });
+            }
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.DateOfBirth = model.DateOfBirth;
+            user.Avatar = model.Avatar;
+            user.Role = model.Role;
+            return await userManager.UpdateAsync(user);
+        }
+        
     }
 }
