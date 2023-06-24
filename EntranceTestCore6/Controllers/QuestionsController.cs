@@ -26,6 +26,7 @@ namespace EntranceTestCore6.Controllers
             var questions = await _context.Questions
                 .Select(q => new QuestionModel
                 {
+                    QuestionId = q.QuestionId,
                     TestId = q.TestId,
                     Content = q.Content,
                     Answer1 = q.Answer1,
@@ -47,6 +48,7 @@ namespace EntranceTestCore6.Controllers
                 .Where(q => q.QuestionId == id)
                 .Select(q => new QuestionModel
                 {
+                    QuestionId = q.QuestionId,
                     TestId = q.TestId,
                     Content = q.Content,
                     Answer1 = q.Answer1,
@@ -71,6 +73,7 @@ namespace EntranceTestCore6.Controllers
         {
             var question = new Question
             {
+                QuestionId = questionModel.QuestionId,
                 TestId = questionModel.TestId,
                 Content = questionModel.Content,
                 Answer1 = questionModel.Answer1,
@@ -90,11 +93,10 @@ namespace EntranceTestCore6.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateQuestion(int id, QuestionModel questionModel)
         {
-            if (id != questionModel.TestId)
+            if (id != questionModel.QuestionId)
             {
                 return BadRequest();
             }
-
             var question = await _context.Questions.FindAsync(id);
 
             if (question == null)
@@ -102,6 +104,7 @@ namespace EntranceTestCore6.Controllers
                 return NotFound();
             }
 
+            question.QuestionId = question.QuestionId;
             question.TestId = questionModel.TestId;
             question.Content = questionModel.Content;
             question.Answer1 = questionModel.Answer1;

@@ -75,6 +75,7 @@ namespace EntranceTestCore6.Repositories
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     DateOfBirth = user.DateOfBirth,
+                    TestAmount = user.TestAmount,
                     Avatar = user.Avatar,
                     Role = user.Role,
                 });
@@ -97,6 +98,7 @@ namespace EntranceTestCore6.Repositories
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DateOfBirth = user.DateOfBirth,
+                TestAmount = user.TestAmount,
                 Avatar = user.Avatar,
                 Role = user.Role,
             };
@@ -115,6 +117,7 @@ namespace EntranceTestCore6.Repositories
             user.UserName = model.Email;
             user.PhoneNumber = model.PhoneNumber;
             user.DateOfBirth = model.DateOfBirth;
+            user.TestAmount = model.TestAmount;
             user.Avatar = model.Avatar;
             user.Role = model.Role;
             return await userManager.UpdateAsync(user);
