@@ -10,7 +10,8 @@ namespace EntranceTestCore6.Data
         public System.DateTime SignUpDate { get; set; }
         public int TestAmount { get; set; }
         public string Avatar { get; set; } = null!;
-        public int? Role { get; set; }
+        public Boolean? isAdmin { get; set; }
+        public Boolean? isActive { get; set; }
         public ICollection<TestAttempt>? TestAttemps { get; set; }
 
     }

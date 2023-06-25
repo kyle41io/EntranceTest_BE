@@ -22,6 +22,8 @@ namespace EntranceTestCore6.Models
         public System.DateTime DateOfBirth { get; set; }
         public string Avatar { get; set; } = null!;
         [Required]
-        public int? Role { get; set; }
+        public Boolean? isAdmin { get; set; }
+        [Required]
+        public Boolean? isActive { get; set; }
     }
 }

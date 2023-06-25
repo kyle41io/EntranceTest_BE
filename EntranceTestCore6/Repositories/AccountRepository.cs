@@ -57,7 +57,8 @@ namespace EntranceTestCore6.Repositories
                 PhoneNumber = model.PhoneNumber,
                 DateOfBirth = model.DateOfBirth,
                 Avatar = model.Avatar,
-                Role = model.Role
+                isAdmin = model.isAdmin,
+                isActive = model.isActive,
             };
             return await userManager.CreateAsync(user, model.Password);
         }
@@ -77,7 +78,8 @@ namespace EntranceTestCore6.Repositories
                     DateOfBirth = user.DateOfBirth,
                     TestAmount = user.TestAmount,
                     Avatar = user.Avatar,
-                    Role = user.Role,
+                    isAdmin = user.isAdmin,
+                    isActive = user.isActive,
                 });
             }
             return userModels;
@@ -100,7 +102,8 @@ namespace EntranceTestCore6.Repositories
                 DateOfBirth = user.DateOfBirth,
                 TestAmount = user.TestAmount,
                 Avatar = user.Avatar,
-                Role = user.Role,
+                isAdmin = user.isAdmin,
+                isActive = user.isActive,
             };
         }
 
@@ -119,7 +122,8 @@ namespace EntranceTestCore6.Repositories
             user.DateOfBirth = model.DateOfBirth;
             user.TestAmount = model.TestAmount;
             user.Avatar = model.Avatar;
-            user.Role = model.Role;
+            user.isAdmin = model.isAdmin;
+            user.isActive = model.isActive;
             return await userManager.UpdateAsync(user);
         }
         
