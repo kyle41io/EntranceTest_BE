@@ -15,8 +15,8 @@ namespace EntranceTestCore6.Data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TestId { get; set; }
         public string? TestName { get; set; }
-        public int QuestionAmount { get; set; }
-        public System.TimeSpan TestTime { get; set; }
+        public int TestAmount { get; set; }
+        public int TestTime { get; set; }
         public string? TestDesc { get; set; }
         public ICollection<Question> Questions { get; set; }
     }

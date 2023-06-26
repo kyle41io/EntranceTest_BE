@@ -9,6 +9,7 @@ namespace EntranceTestCore6.Models
         [Required]
         public string Password { get; set; } = null!;
         [Required]
-        public int Role { get; set; } 
+        public Boolean isAdmin { get; set; } 
+        
     }
 }

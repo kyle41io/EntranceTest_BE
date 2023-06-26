@@ -3,6 +3,7 @@ using System;
 using EntranceTestCore6.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntranceTestCore6.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230626093131_Modify26June1")]
+    partial class Modify26June1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,7 +163,7 @@ namespace EntranceTestCore6.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TestId"));
 
-                    b.Property<int>("TestAmount")
+                    b.Property<int>("QuestionAmount")
                         .HasColumnType("integer");
 
                     b.Property<string>("TestDesc")
@@ -168,9 +171,6 @@ namespace EntranceTestCore6.Migrations
 
                     b.Property<string>("TestName")
                         .HasColumnType("text");
-
-                    b.Property<int>("TestTime")
-                        .HasColumnType("integer");
 
                     b.HasKey("TestId");
 
