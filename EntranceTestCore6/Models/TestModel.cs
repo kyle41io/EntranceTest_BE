@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-using EntranceTestCore6.Data;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace EntranceTestCore6.Models
 {

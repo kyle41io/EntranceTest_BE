@@ -1,6 +1,6 @@
-﻿using EntranceTestCore6.Data;
-using EntranceTestCore6.Models;
+﻿using EntranceTestCore6.Models;
 using EntranceTestCore6.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ namespace EntranceTestCore6.Controllers
             accountRepo = repo;
         }
         
-
+        [Authorize]
         [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(UserModel addUserModel)
         {
@@ -51,7 +51,8 @@ namespace EntranceTestCore6.Controllers
             var users = await accountRepo.GetAllUsersAsync();
             return Ok(users);
         }
-
+        
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -62,7 +63,8 @@ namespace EntranceTestCore6.Controllers
             }
             return Ok(user);
         }
-
+        
+        [Authorize]
         [HttpPut("UpdateUser/{Id}")]
         public async Task<IActionResult> UpdateUser(string Id, UserModel updateUserModel)
         {

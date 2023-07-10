@@ -8,8 +8,6 @@ namespace EntranceTestCore6.Models
         public string Email { get; set; } = null!;
         [Required]
         public string Password { get; set; } = null!;
-        [Required]
-        public Boolean isAdmin { get; set; } 
         
     }
 }

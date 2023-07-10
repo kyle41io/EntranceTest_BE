@@ -31,10 +31,7 @@ namespace EntranceTestCore6.Data
                 .WithOne(q => q.Test)
                 .HasForeignKey(q => q.TestId);
 
-            modelBuilder.Entity<ApplicationUser>()
-            .HasMany(m => m.TestAttemps)
-            .WithOne(t => t.ApplicationUser)
-            .HasForeignKey(t => t.Email);
+           
         }
 
         

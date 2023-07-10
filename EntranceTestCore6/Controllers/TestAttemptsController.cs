@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EntranceTestCore6.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EntranceTestCore6.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class TestAttemptsController : ControllerBase

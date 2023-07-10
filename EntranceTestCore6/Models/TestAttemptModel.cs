@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EntranceTestCore6.Data
+namespace EntranceTestCore6.Models
 {
-    public class TestAttempt
+    public class TestAttemptModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,6 +16,7 @@ namespace EntranceTestCore6.Data
         public int AmountCorrect { get; set; }
         public bool IsFinish { get; set; }
         public double Accurate { get; set; }
+
 
     }
 }

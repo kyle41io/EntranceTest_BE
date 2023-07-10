@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using EntranceTestCore6.Data;
 using EntranceTestCore6.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ApiController]
 [Route("[controller]")]
 public class TestsController : ControllerBase
