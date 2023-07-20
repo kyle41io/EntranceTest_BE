@@ -7,7 +7,7 @@ using EntranceTestCore6.Models;
 
 namespace EntranceTestCore6.Controllers
 {
-    [Authorize]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminModUserController : ControllerBase
@@ -19,15 +19,15 @@ namespace EntranceTestCore6.Controllers
             _userManager = userManager;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(string id, [FromBody] AdminModUserModel user)
+        [HttpPut("{email}")]
+        public async Task<ActionResult<AdminModUserModel>> UpdateUser(string email, [FromBody] AdminModUserModel user)
         {
-            var appUser = await _userManager.FindByIdAsync(id);
+            var appUser = await _userManager.FindByEmailAsync(email);
             if (appUser == null)
             {
                 return NotFound();
             }
-            appUser.Id = user.Id;
+            appUser.Email = user.Email;
             appUser.isAdmin = user.isAdmin;
             appUser.isActive = user.isActive;
 

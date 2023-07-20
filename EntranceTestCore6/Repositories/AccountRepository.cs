@@ -62,15 +62,14 @@ namespace EntranceTestCore6.Repositories
             };
             return await userManager.CreateAsync(user, model.Password);
         }
-        public async Task<List<UserModel>> GetAllUsersAsync()
+        public async Task<List<UserModifyModel>> GetAllUsersAsync()
         {
             var users = await userManager.Users.ToListAsync();
-            var userModels = new List<UserModel>();
+            var userModels = new List<UserModifyModel>();
             foreach (var user in users)
             {
-                userModels.Add(new UserModel
-                {
-                    
+                userModels.Add(new UserModifyModel
+                {                    
                     Email = user.Email,
                     PhoneNumber = user.PhoneNumber,
                     FirstName = user.FirstName,
@@ -85,14 +84,14 @@ namespace EntranceTestCore6.Repositories
             return userModels;
         }
 
-        public async Task<UserModel> GetUserByIdAsync(string id)
+        public async Task<UserModifyModel> GetUserByEmailAsync(string email)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 return null;
             }
-            return new UserModel
+            return new UserModifyModel
             {
                 
                 Email = user.Email,
@@ -107,9 +106,9 @@ namespace EntranceTestCore6.Repositories
             };
         }
 
-        public async Task<IdentityResult> UpdateUserAsync(string id, UserModel model)
+        public async Task<IdentityResult> UpdateUserAsync(string email, UserModifyModel model)
         {
-            var user = await userManager.FindByIdAsync(id);
+            var user = await userManager.FindByEmailAsync(email);
             if (user == null)
             {
                 return IdentityResult.Failed(new IdentityError { Description = "User not found" });

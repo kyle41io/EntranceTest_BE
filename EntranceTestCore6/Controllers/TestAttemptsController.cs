@@ -50,36 +50,18 @@ namespace EntranceTestCore6.Controllers
 
             return testAttempt;
         }
-
-        // PUT: api/TestAttempts/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTestAttempt(int id, TestAttempt testAttempt)
+        // GET: api/TestAttempts/email/{email}
+        [HttpGet("email/{email}")]
+        public async Task<ActionResult<IEnumerable<TestAttempt>>> GetTestAttemptsByEmail(string email)
         {
-            if (id != testAttempt.AttemptId)
+            var testAttempts = await _context.TestAttempts.Where(x => x.Email == email).ToListAsync();
+        
+            if (testAttempts == null)
             {
-                return BadRequest();
+                return NotFound();
             }
-
-            _context.Entry(testAttempt).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TestAttemptExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+        
+            return testAttempts;
         }
 
         // POST: api/TestAttempts
@@ -95,26 +77,6 @@ namespace EntranceTestCore6.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTestAttempt", new { id = testAttempt.AttemptId }, testAttempt);
-        }
-
-        // DELETE: api/TestAttempts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTestAttempt(int id)
-        {
-            if (_context.TestAttempts == null)
-            {
-                return NotFound();
-            }
-            var testAttempt = await _context.TestAttempts.FindAsync(id);
-            if (testAttempt == null)
-            {
-                return NotFound();
-            }
-
-            _context.TestAttempts.Remove(testAttempt);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool TestAttemptExists(int id)

@@ -20,7 +20,7 @@ namespace EntranceTestCore6.Controllers
             accountRepo = repo;
         }
         
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(UserModel addUserModel)
         {
@@ -52,11 +52,11 @@ namespace EntranceTestCore6.Controllers
             return Ok(users);
         }
         
-        [Authorize]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(string id)
+        //[Authorize]
+        [HttpGet("{email}")]
+        public async Task<IActionResult> GetUserByEmail(string email)
         {
-            var user = await accountRepo.GetUserByIdAsync(id);
+            var user = await accountRepo.GetUserByEmailAsync(email);
             if (user == null)
             {
                 return NotFound();
@@ -64,11 +64,11 @@ namespace EntranceTestCore6.Controllers
             return Ok(user);
         }
         
-        [Authorize]
-        [HttpPut("UpdateUser/{Id}")]
-        public async Task<IActionResult> UpdateUser(string Id, UserModel updateUserModel)
+        //[Authorize]
+        [HttpPut("{email}")]
+        public async Task<IActionResult> UpdateUser(string email, UserModifyModel updateUserModel)
         {
-            var result = await accountRepo.UpdateUserAsync(Id, updateUserModel);
+            var result = await accountRepo.UpdateUserAsync(email, updateUserModel);
             if (result.Succeeded)
             {
                 return Ok(result.Succeeded);
@@ -77,4 +77,5 @@ namespace EntranceTestCore6.Controllers
             return Unauthorized();
         }
     }
+
 }

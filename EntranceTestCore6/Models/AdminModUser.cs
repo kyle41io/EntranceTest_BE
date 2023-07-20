@@ -6,7 +6,7 @@ namespace EntranceTestCore6.Models
     public class AdminModUserModel
     {
         [Required]
-        public string? Id  { get; set; }
+        public string? Email  { get; set; }
         [Required]
         public Boolean? isAdmin { get; set; }
         [Required]
