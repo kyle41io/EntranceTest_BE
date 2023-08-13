@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Authorize(AuthenticationSchemes = "Bearer")]
+
 [ApiController]
 [Route("[controller]")]
 public class TestsController : ControllerBase
@@ -18,6 +18,7 @@ public class TestsController : ControllerBase
         _mapper = mapper;
         _dbContext = dbContext;
     }
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TestModel>>> GetAllTests()
     {
@@ -25,6 +26,7 @@ public class TestsController : ControllerBase
         return _mapper.Map<List<TestModel>>(tests);
     }
 
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpGet("{testId}")]
     public async Task<ActionResult<TestModel>> GetTest(int testId)
     {
@@ -37,7 +39,7 @@ public class TestsController : ControllerBase
 
         return _mapper.Map<TestModel>(test);
     }
-
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpPost]
     public async Task<IActionResult> CreateTest(TestModel model)
     {
@@ -75,7 +77,7 @@ public class TestsController : ControllerBase
 
         return NoContent();
     }
-
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpDelete("{testId}")]
     public async Task<IActionResult> DeleteTest(int testId)
     {
