@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EntranceTestCore6.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class TestAttemptsController : ControllerBase
@@ -64,8 +64,20 @@ namespace EntranceTestCore6.Controllers
             return testAttempts;
         }
 
+        [HttpGet("test/{testId}")]
+        public async Task<ActionResult<IEnumerable<TestAttempt>>> GetTestAttemptsByTestId(int testId)
+        {
+            var testAttempts = await _context.TestAttempts.Where(x => x.TestId == testId).ToListAsync();
+        
+            if (testAttempts == null)
+            {
+                return NotFound();
+            }
+        
+            return testAttempts;
+        }
+
         // POST: api/TestAttempts
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TestAttempt>> PostTestAttempt(TestAttempt testAttempt)
         {

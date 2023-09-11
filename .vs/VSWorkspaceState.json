@@ -2,12 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\EntranceTestCore6",
+    "\\EntranceTestCore6\\bin\\Release",
     "\\EntranceTestCore6\\Controllers",
     "\\EntranceTestCore6\\Data",
     "\\EntranceTestCore6\\Helpers",
     "\\EntranceTestCore6\\Models",
     "\\EntranceTestCore6\\Repositories"
   ],
-  "SelectedNode": "\\EntranceTestCore6\\Controllers\\QuestionsController.cs",
+  "SelectedNode": "\\EntranceTestCore6\\Controllers\\AccountsController.cs",
   "PreviewInSolutionExplorer": false
 }

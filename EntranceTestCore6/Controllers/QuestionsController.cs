@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace EntranceTestCore6.Controllers
-{   [Authorize(AuthenticationSchemes = "Bearer")]
+{   
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     [Route("api/[controller]")]
     public class QuestionsController : ControllerBase

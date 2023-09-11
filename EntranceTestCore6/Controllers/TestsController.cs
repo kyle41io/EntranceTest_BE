@@ -18,6 +18,7 @@ public class TestsController : ControllerBase
         _mapper = mapper;
         _dbContext = dbContext;
     }
+    
     [Authorize(AuthenticationSchemes = "Bearer")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<TestModel>>> GetAllTests()
